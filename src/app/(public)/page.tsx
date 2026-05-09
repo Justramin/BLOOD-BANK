@@ -27,12 +27,13 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { toast } from 'sonner'
-import { megalaService } from '@/services/megalaService'
+import { committeeService } from '@/services/committeeService'
 import { unitService } from '@/services/unitService'
 import { donorService } from '@/services/donorService'
 import { BLOOD_GROUPS } from '@/constants'
 import Image from 'next/image'
 import { cn } from '@/lib/utils'
+import { Committee, Unit } from '@/types'
 
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
@@ -49,9 +50,9 @@ const staggerContainer = {
 }
 
 export default function RegisterPage() {
-  const [megalaOptions, setMegalaOptions] = useState<Array<{ id: string; name: string }>>([])
-  const [unitOptions, setUnitOptions] = useState<Array<{ id: string; name: string }>>([])
-  const [loadingMegala, setLoadingMegala] = useState(true)
+  const [committeeOptions, setCommitteeOptions] = useState<Committee[]>([])
+  const [unitOptions, setUnitOptions] = useState<Unit[]>([])
+  const [loadingCommittee, setLoadingCommittee] = useState(true)
   const [loadingUnits, setLoadingUnits] = useState(false)
   const [formStep, setFormStep] = useState(1)
 
@@ -60,7 +61,7 @@ export default function RegisterPage() {
     bloodGroup: '',
     dob: '',
     phone: '',
-    megalaId: '',
+    committeeId: '',
     unitId: '',
     newUnitName: '',
     lastDonation: ''
@@ -79,29 +80,29 @@ export default function RegisterPage() {
   const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95])
 
   useEffect(() => {
-    const fetchMegalas = async () => {
+    const fetchCommittees = async () => {
       try {
-        const data = await megalaService.getAll()
-        setMegalaOptions(data)
+        const data = await committeeService.getAll()
+        setCommitteeOptions(data)
       } catch (e) {
         console.error(e)
         toast.error('Failed to load committees')
       } finally {
-        setLoadingMegala(false)
+        setLoadingCommittee(false)
       }
     }
-    fetchMegalas()
+    fetchCommittees()
   }, [])
 
   useEffect(() => {
-    if (!form.megalaId) {
+    if (!form.committeeId) {
       setUnitOptions([])
       return
     }
     const fetchUnits = async () => {
       setLoadingUnits(true)
       try {
-        const data = await unitService.getByMegala(form.megalaId)
+        const data = await unitService.getByCommittee(form.committeeId)
         setUnitOptions(data)
         setShowNewUnitInput(false)
       } catch (e) {
@@ -112,7 +113,7 @@ export default function RegisterPage() {
       }
     }
     fetchUnits()
-  }, [form.megalaId])
+  }, [form.committeeId])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
@@ -126,8 +127,9 @@ export default function RegisterPage() {
       if (!form.dob) return 'Date of birth is required'
     }
     if (step === 2) {
-      if (!/^\d{10}$/.test(form.phone)) return 'Phone must be 10 digits'
-      if (!form.megalaId) return 'Committee is required'
+      if (!form.phone) return 'Phone number is required'
+      if (!/\d{10}/.test(form.phone)) return 'Phone must be 10 digits'
+      if (!form.committeeId) return 'Committee is required'
       if (!form.unitId && !form.newUnitName) return 'Unit is required'
     }
     return null
@@ -155,7 +157,7 @@ export default function RegisterPage() {
     try {
       let finalUnitId = form.unitId
       if (showNewUnitInput && form.newUnitName) {
-        const newUnit = await unitService.create(form.megalaId, form.newUnitName)
+        const newUnit = await unitService.create(form.committeeId, form.newUnitName)
         finalUnitId = newUnit.id
       }
 
@@ -164,7 +166,7 @@ export default function RegisterPage() {
         blood_group: form.bloodGroup,
         dob: form.dob,
         phone: form.phone,
-        megala_id: form.megalaId,
+        committee_id: form.committeeId,
         unit_id: finalUnitId,
         last_blood_donating_date: form.lastDonation || null,
         available: true
@@ -206,7 +208,7 @@ export default function RegisterPage() {
                 bloodGroup: '',
                 dob: '',
                 phone: '',
-                megalaId: '',
+                committeeId: '',
                 unitId: '',
                 newUnitName: '',
                 lastDonation: ''
@@ -594,16 +596,18 @@ export default function RegisterPage() {
                                   Committee
                                 </Label>
                                 <Select
-                                  value={form.megalaId}
-                                  onValueChange={value => setForm(prev => ({ ...prev, megalaId: value || '', unitId: '' }))}
+                                  value={form.committeeId}
+                                  onValueChange={value => setForm(prev => ({ ...prev, committeeId: value || '', unitId: '' }))}
                                 >
-                                  <SelectTrigger className="h-14 px-6 rounded-2xl bg-slate-50 border-2 border-transparent focus:bg-white focus:border-primary/20 transition-all text-base font-bold">
-                                    <SelectValue placeholder="Select committee" />
+                                  <SelectTrigger className="h-14 px-6 rounded-2xl bg-slate-50 border-2 border-transparent focus:bg-white focus:border-primary/20 transition-all text-base font-bold text-slate-900">
+                                    <SelectValue placeholder="Select committee">
+                                      {committeeOptions.find(opt => opt.id === form.committeeId)?.name}
+                                    </SelectValue>
                                   </SelectTrigger>
                                   <SelectContent className="rounded-[1.5rem] p-2">
-                                    {loadingMegala ? (
+                                    {loadingCommittee ? (
                                       <div className="p-4 text-center text-slate-400">Loading...</div>
-                                    ) : megalaOptions.map(opt => (
+                                    ) : committeeOptions.map(opt => (
                                       <SelectItem key={opt.id} value={opt.id} className="rounded-xl py-3 font-bold">
                                         {opt.name}
                                       </SelectItem>
@@ -630,10 +634,12 @@ export default function RegisterPage() {
                                       setForm(prev => ({ ...prev, unitId: val }))
                                     }
                                   }}
-                                  disabled={!form.megalaId}
+                                  disabled={!form.committeeId}
                                 >
-                                  <SelectTrigger className="h-14 px-6 rounded-2xl bg-slate-50 border-2 border-transparent focus:bg-white focus:border-primary/20 transition-all text-base font-bold">
-                                    <SelectValue placeholder={form.megalaId ? 'Select unit' : 'Select committee first'} />
+                                  <SelectTrigger className="h-14 px-6 rounded-2xl bg-slate-50 border-2 border-transparent focus:bg-white focus:border-primary/20 transition-all text-base font-bold text-slate-900">
+                                    <SelectValue placeholder={form.committeeId ? 'Select unit' : 'Select committee first'}>
+                                      {unitOptions.find(opt => opt.id === form.unitId)?.name}
+                                    </SelectValue>
                                   </SelectTrigger>
                                   <SelectContent className="rounded-[1.5rem] p-2">
                                     {loadingUnits ? (

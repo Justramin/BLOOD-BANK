@@ -3,8 +3,8 @@
 import React, { useEffect, useState } from 'react'
 import { Plus, Search, Building2, Edit, Trash2, MapPin, Activity, ChevronRight, Layers } from 'lucide-react'
 import { unitService } from '@/services/unitService'
-import { megalaService } from '@/services/megalaService'
-import { Unit, Megala } from '@/types'
+import { committeeService } from '@/services/committeeService'
+import { Unit, Committee } from '@/types'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
@@ -44,7 +44,7 @@ export default function UnitsPage() {
     try {
       const [unitsData, committeesData] = await Promise.all([
         unitService.getAll(),
-        megalaService.getAll()
+        committeeService.getAll()
       ])
       setUnits(unitsData)
       setCommittees(committeesData)
@@ -139,8 +139,10 @@ export default function UnitsPage() {
               <div className="space-y-2">
                 <Label className="text-xs font-black text-slate-500 uppercase tracking-widest">Select Committee</Label>
                 <Select value={committeeId} onValueChange={(v) => v && setCommitteeId(v)} required>
-                  <SelectTrigger className="h-12 bg-slate-50 border-2 border-transparent focus:bg-white focus:border-primary/20 rounded-xl font-bold">
-                    <SelectValue placeholder="Select Parent Committee" />
+                  <SelectTrigger className="h-12 bg-slate-50 border-2 border-transparent focus:bg-white focus:border-primary/20 rounded-xl font-bold text-slate-900">
+                    <SelectValue placeholder="Select Parent Committee">
+                      {committees.find(c => c.id === committeeId)?.name}
+                    </SelectValue>
                   </SelectTrigger>
                   <SelectContent className="rounded-2xl p-2">
                     {committees.map((m) => (

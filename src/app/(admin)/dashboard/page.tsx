@@ -24,7 +24,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { donorService } from '@/services/donorService'
-import { megalaService } from '@/services/megalaService'
+import { committeeService } from '@/services/committeeService'
 import { unitService } from '@/services/unitService'
 import { BLOOD_GROUPS } from '@/constants'
 import Link from 'next/link'
@@ -42,7 +42,7 @@ export default function Dashboard() {
       try {
         const [donorStats, committees, units] = await Promise.all([
           donorService.getStats(),
-          megalaService.getAll(),
+          committeeService.getAll(),
           unitService.getAll()
         ])
         setStats(donorStats)

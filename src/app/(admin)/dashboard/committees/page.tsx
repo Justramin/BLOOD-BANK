@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import { Plus, Search, MapPin, Edit, Trash2, MoreHorizontal, Activity, ChevronRight, MapPinned } from 'lucide-react'
-import { megalaService } from '@/services/megalaService'
+import { committeeService } from '@/services/committeeService'
 import { Committee } from '@/types'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -32,7 +32,7 @@ export default function CommitteesPage() {
 
   const loadCommittees = async () => {
     try {
-      const data = await megalaService.getAll()
+      const data = await committeeService.getAll()
       setCommittees(data)
     } catch (error) {
       toast.error('Failed to load committees')
@@ -52,10 +52,10 @@ export default function CommitteesPage() {
     setSubmitting(true)
     try {
       if (currentCommittee) {
-        await megalaService.update(currentCommittee.id, name)
+        await committeeService.update(currentCommittee.id, name)
         toast.success('Committee updated successfully')
       } else {
-        await megalaService.create(name)
+        await committeeService.create(name)
         toast.success('Committee created successfully')
       }
       setIsDialogOpen(false)
@@ -73,7 +73,7 @@ export default function CommitteesPage() {
     if (!confirm('Are you sure? This will also delete all units under this committee.')) return
 
     try {
-      await megalaService.delete(id)
+      await committeeService.delete(id)
       toast.success('Committee deleted successfully')
       loadCommittees()
     } catch (error) {

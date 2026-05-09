@@ -3,7 +3,7 @@ import { Committee } from '@/types'
 
 const supabase = createClient()
 
-export const megalaService = {
+export const committeeService = {
   async getAll() {
     const { data, error } = await supabase
       .from('committees')

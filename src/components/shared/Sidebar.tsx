@@ -26,7 +26,7 @@ import Image from 'next/image'
 
 const navItems = [
   { name: 'Overview', href: '/dashboard', icon: LayoutDashboard },
-  { name: 'Committees', href: '/dashboard/megalas', icon: MapPin },
+  { name: 'Committees', href: '/dashboard/committees', icon: MapPin },
   { name: 'Units', href: '/dashboard/units', icon: Building2 },
   { name: 'Donors', href: '/dashboard/donors', icon: Users },
   { name: 'System Settings', href: '/dashboard/settings', icon: Settings },

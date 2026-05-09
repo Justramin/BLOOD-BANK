@@ -26,9 +26,9 @@ import {
   Settings
 } from 'lucide-react'
 import { donorService } from '@/services/donorService'
-import { megalaService } from '@/services/megalaService'
+import { committeeService } from '@/services/committeeService'
 import { unitService } from '@/services/unitService'
-import { Donor, Megala, Unit } from '@/types'
+import { Donor, Committee, Unit } from '@/types'
 import { BLOOD_GROUPS } from '@/constants'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -67,13 +67,13 @@ import { cn } from '@/lib/utils'
 
 export default function DonorsPage() {
   const [donors, setDonors] = useState<Donor[]>([])
-  const [megalas, setMegalas] = useState<Megala[]>([])
+  const [committees, setCommittees] = useState<Committee[]>([])
   const [units, setUnits] = useState<Unit[]>([])
   const [loading, setLoading] = useState(true)
   
   // Filters
   const [search, setSearch] = useState('')
-  const [filterMegala, setFilterMegala] = useState('all')
+  const [filterCommittee, setFilterCommittee] = useState('all')
   const [filterUnit, setFilterUnit] = useState('all')
   const [filterBlood, setFilterBlood] = useState('all')
 
@@ -85,12 +85,12 @@ export default function DonorsPage() {
 
   const loadData = async () => {
     try {
-      const [donorsData, megalasData] = await Promise.all([
+      const [donorsData, committeesData] = await Promise.all([
         donorService.getAll(),
-        megalaService.getAll()
+        committeeService.getAll()
       ])
       setDonors(donorsData)
-      setMegalas(megalasData)
+      setCommittees(committeesData)
     } catch (error) {
       toast.error('Failed to load data')
     } finally {
@@ -102,14 +102,14 @@ export default function DonorsPage() {
     loadData()
   }, [])
 
-  const handleMegalaChange = async (id: string | null) => {
+  const handleCommitteeChange = async (id: string | null) => {
     if (!id || id === 'all') {
       setUnits([])
       setFilterUnit('all')
       return
     }
     try {
-      const unitsData = await unitService.getByMegala(id)
+      const unitsData = await unitService.getByCommittee(id)
       setUnits(unitsData)
       setFilterUnit('all')
     } catch (error) {
@@ -117,11 +117,11 @@ export default function DonorsPage() {
     }
   }
 
-  const handleFormMegalaChange = async (id: string | null) => {
+  const handleFormCommitteeChange = async (id: string | null) => {
     if (!id) return
-    setCurrentDonor(prev => ({ ...prev, megala_id: id, unit_id: undefined } as Partial<Donor>))
+    setCurrentDonor(prev => ({ ...prev, committee_id: id, unit_id: undefined } as Partial<Donor>))
     try {
-      const unitsData = await unitService.getByMegala(id)
+      const unitsData = await unitService.getByCommittee(id)
       setFormUnits(unitsData)
     } catch (error) {
       toast.error('Failed to load units')
@@ -130,7 +130,7 @@ export default function DonorsPage() {
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!currentDonor?.name || !currentDonor?.phone || !currentDonor?.blood_group || !currentDonor?.megala_id || !currentDonor?.unit_id) {
+    if (!currentDonor?.name || !currentDonor?.phone || !currentDonor?.blood_group || !currentDonor?.committee_id || !currentDonor?.unit_id) {
       toast.error('Please fill all required fields')
       return
     }
@@ -169,10 +169,10 @@ export default function DonorsPage() {
   const filteredDonors = donors.filter(d => {
     const matchesSearch = d.name.toLowerCase().includes(search.toLowerCase()) || 
                          d.phone.includes(search)
-    const matchesMegala = filterMegala === 'all' || d.megala_id === filterMegala
+    const matchesCommittee = filterCommittee === 'all' || d.committee_id === filterCommittee
     const matchesUnit = filterUnit === 'all' || d.unit_id === filterUnit
     const matchesBlood = filterBlood === 'all' || d.blood_group === filterBlood
-    return matchesSearch && matchesMegala && matchesUnit && matchesBlood
+    return matchesSearch && matchesCommittee && matchesUnit && matchesBlood
   })
 
   return (
@@ -280,16 +280,18 @@ export default function DonorsPage() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label className="text-xs font-black text-slate-500 uppercase tracking-widest">Megala Committee</Label>
+                    <Label className="text-xs font-black text-slate-500 uppercase tracking-widest">Regional Committee</Label>
                     <Select 
-                      value={currentDonor?.megala_id} 
-                      onValueChange={handleFormMegalaChange}
+                      value={currentDonor?.committee_id} 
+                      onValueChange={handleFormCommitteeChange}
                     >
-                      <SelectTrigger className="h-12 bg-slate-50 border-2 border-transparent focus:bg-white focus:border-primary/20 rounded-xl font-bold">
-                        <SelectValue placeholder="Select Megala" />
+                      <SelectTrigger className="h-12 bg-slate-50 border-2 border-transparent focus:bg-white focus:border-primary/20 rounded-xl font-bold text-slate-900">
+                        <SelectValue placeholder="Select Committee">
+                          {committees.find(c => c.id === currentDonor?.committee_id)?.name}
+                        </SelectValue>
                       </SelectTrigger>
                       <SelectContent className="rounded-2xl p-2">
-                        {megalas.map(m => <SelectItem key={m.id} value={m.id} className="rounded-xl font-bold py-3">{m.name}</SelectItem>)}
+                        {committees.map(m => <SelectItem key={m.id} value={m.id} className="rounded-xl font-bold py-3">{m.name}</SelectItem>)}
                       </SelectContent>
                     </Select>
                   </div>
@@ -298,10 +300,12 @@ export default function DonorsPage() {
                     <Select 
                       value={currentDonor.unit_id} 
                       onValueChange={(v) => setCurrentDonor(prev => ({ ...prev, unit_id: v } as Partial<Donor>))}
-                      disabled={!currentDonor.megala_id}
+                      disabled={!currentDonor.committee_id}
                     >
-                      <SelectTrigger className="h-12 bg-slate-50 border-2 border-transparent focus:bg-white focus:border-primary/20 rounded-xl font-bold">
-                        <SelectValue placeholder="Select Unit" />
+                      <SelectTrigger className="h-12 bg-slate-50 border-2 border-transparent focus:bg-white focus:border-primary/20 rounded-xl font-bold text-slate-900">
+                        <SelectValue placeholder="Select Unit">
+                          {formUnits.find(u => u.id === currentDonor.unit_id)?.name}
+                        </SelectValue>
                       </SelectTrigger>
                       <SelectContent className="rounded-2xl p-2">
                         {formUnits.map(u => <SelectItem key={u.id} value={u.id} className="rounded-xl font-bold py-3">{u.name}</SelectItem>)}
@@ -356,24 +360,28 @@ export default function DonorsPage() {
             />
           </div>
           <div className="flex flex-wrap items-center gap-4 w-full lg:w-auto">
-            <Select value={filterMegala} onValueChange={(v) => { if (v) { setFilterMegala(v); handleMegalaChange(v); } }}>
+            <Select value={filterCommittee} onValueChange={(v) => { if (v) { setFilterCommittee(v); handleCommitteeChange(v); } }}>
               <SelectTrigger className="w-[160px] h-14 bg-slate-50 border-none rounded-[1.25rem] font-black text-xs uppercase tracking-widest text-slate-500">
                 <div className="flex items-center gap-2">
                   <MapPin className="w-4 h-4 text-primary" />
-                  <SelectValue placeholder="Megala" />
+                  <SelectValue placeholder="Committee">
+                    {filterCommittee === 'all' ? 'All' : committees.find(c => c.id === filterCommittee)?.name}
+                  </SelectValue>
                 </div>
               </SelectTrigger>
               <SelectContent className="rounded-2xl p-2 min-w-[200px]">
                 <SelectItem value="all" className="rounded-xl font-bold py-3">All Committees</SelectItem>
-                {megalas.map(m => <SelectItem key={m.id} value={m.id} className="rounded-xl font-bold py-3">{m.name}</SelectItem>)}
+                {committees.map(m => <SelectItem key={m.id} value={m.id} className="rounded-xl font-bold py-3">{m.name}</SelectItem>)}
               </SelectContent>
             </Select>
 
-            <Select value={filterUnit} onValueChange={(v) => v && setFilterUnit(v)} disabled={filterMegala === 'all'}>
+            <Select value={filterUnit} onValueChange={(v) => v && setFilterUnit(v)} disabled={filterCommittee === 'all'}>
               <SelectTrigger className="w-[160px] h-14 bg-slate-50 border-none rounded-[1.25rem] font-black text-xs uppercase tracking-widest text-slate-500">
                 <div className="flex items-center gap-2">
                   <Building2 className="w-4 h-4 text-primary" />
-                  <SelectValue placeholder="Unit" />
+                  <SelectValue placeholder="Unit">
+                    {filterUnit === 'all' ? 'All' : units.find(u => u.id === filterUnit)?.name}
+                  </SelectValue>
                 </div>
               </SelectTrigger>
               <SelectContent className="rounded-2xl p-2 min-w-[200px]">
@@ -400,7 +408,7 @@ export default function DonorsPage() {
               className="h-14 w-14 rounded-[1.25rem] border-2 flex items-center justify-center p-0"
               onClick={() => {
                 setSearch('')
-                setFilterMegala('all')
+                setFilterCommittee('all')
                 setFilterUnit('all')
                 setFilterBlood('all')
               }}
@@ -468,7 +476,7 @@ export default function DonorsPage() {
                           <DropdownMenuContent align="end" className="rounded-2xl border-none shadow-2xl p-2 min-w-[150px]">
                             <DropdownMenuItem onClick={() => {
                               setCurrentDonor(donor)
-                              handleFormMegalaChange(donor.megala_id)
+                              handleFormCommitteeChange(donor.committee_id)
                               setIsDialogOpen(true)
                             }} className="rounded-xl py-3 font-bold cursor-pointer">
                               <Edit className="w-4 h-4 mr-2" />
@@ -552,7 +560,7 @@ export default function DonorsPage() {
               variant="link" 
               onClick={() => {
                 setSearch('')
-                setFilterMegala('all')
+                setFilterCommittee('all')
                 setFilterUnit('all')
                 setFilterBlood('all')
               }}
