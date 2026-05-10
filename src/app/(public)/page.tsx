@@ -6,8 +6,6 @@ import { Hero } from '@/components/public/Hero'
 import { EmergencyRequests } from '@/components/public/EmergencyRequests'
 import { Campaigns } from '@/components/public/Campaigns'
 import { Awareness } from '@/components/public/Awareness'
-import { DonorSearch } from '@/components/public/DonorSearch'
-import { VolunteerImpact } from '@/components/public/VolunteerImpact'
 import { RegisterForm } from '@/components/public/RegisterForm'
 import { CTASection } from '@/components/public/CTASection'
 import { Footer } from '@/components/public/Footer'
@@ -20,8 +18,6 @@ export default function LandingPage() {
       <EmergencyRequests />
       <Campaigns />
       <Awareness />
-      <DonorSearch />
-      <VolunteerImpact />
       <RegisterForm />
       <CTASection />
       <Footer />

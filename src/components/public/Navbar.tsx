@@ -12,7 +12,6 @@ const navLinks = [
   { name: 'Home', href: '#' },
   { name: 'Campaigns', href: '#campaigns' },
   { name: 'Emergency', href: '#emergency' },
-  { name: 'Donors', href: '#donors' },
   { name: 'Register', href: '#register' },
 ]
 

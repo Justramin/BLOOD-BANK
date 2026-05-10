@@ -44,7 +44,7 @@ export const Footer = () => {
             <div className="space-y-8">
               <h4 className="text-sm font-black uppercase tracking-[0.2em] text-slate-900">Platform</h4>
               <ul className="space-y-4">
-                {['Home', 'Campaigns', 'Search Donors', 'Emergency', 'Register'].map((item) => (
+                {['Home', 'Campaigns', 'Emergency', 'Register'].map((item) => (
                   <li key={item}>
                     <Link href="#" className="text-slate-500 font-bold hover:text-primary transition-colors">{item}</Link>
                   </li>
