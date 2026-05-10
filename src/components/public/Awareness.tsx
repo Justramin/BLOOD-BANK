@@ -10,10 +10,6 @@ const posters = [
   '/Images/Poster2.jpg',
   '/Images/Poster3.jpg',
   '/Images/Poster4.jpg',
-  '/Images/Poster5.jpg',
-  '/Images/Poster6.jpg',
-  '/Images/Poster7.jpg',
-  '/Images/Poster8.jpg',
 ]
 
 export const Awareness = () => {
@@ -48,7 +44,7 @@ export const Awareness = () => {
               viewport={{ once: true }}
               transition={{ delay: i * 0.05 }}
               whileHover={{ scale: 1.05, rotate: i % 2 === 0 ? 2 : -2 }}
-              className="relative aspect-[3/4] rounded-[2rem] overflow-hidden shadow-2xl shadow-black/5 group cursor-pointer"
+              className="relative aspect-[3/4] rounded-[2rem] overflow-hidden shadow-2xl shadow-black/5 group"
             >
               <Image 
                 src={src} 
@@ -56,12 +52,7 @@ export const Awareness = () => {
                 fill 
                 className="object-cover transition-transform duration-500 group-hover:brightness-90"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center justify-center">
-                <div className="px-6 py-2 rounded-full bg-white/90 backdrop-blur-sm text-slate-900 text-[10px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-all translate-y-4 group-hover:translate-y-0">
-                  Full View
-                </div>
-              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
             </motion.div>
           ))}
         </div>
