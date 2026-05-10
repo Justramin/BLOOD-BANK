@@ -107,11 +107,12 @@ export default function DonationRecordsPage() {
 
         <div className="flex flex-wrap items-center gap-3">
           <DropdownMenu>
-            <DropdownMenuTrigger asChild>
+            <DropdownMenuTrigger render={
               <Button variant="outline" className="rounded-2xl h-12 px-6 font-bold border-2 bg-white">
                 <FileDown className="w-4 h-4 mr-2" />
                 Export Records
               </Button>
+            }>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="rounded-2xl border-none shadow-2xl p-2 min-w-[200px]">
               <DropdownMenuItem onClick={() => exportDonationsToExcel(filteredDonations, 'donation_records')} className="rounded-xl py-3 font-bold cursor-pointer">

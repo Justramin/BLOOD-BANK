@@ -120,7 +120,7 @@ export const DonorSearch = () => {
             {/* Blood Group */}
             <div className="lg:col-span-3 space-y-3">
               <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 ml-2">Blood Group</label>
-              <Select value={filters.bloodGroup} onValueChange={(val) => setFilters(prev => ({ ...prev, bloodGroup: val }))}>
+              <Select value={filters.bloodGroup} onValueChange={(val) => setFilters(prev => ({ ...prev, bloodGroup: val as string }))}>
                 <SelectTrigger className="h-16 px-6 rounded-2xl bg-slate-50 border-none focus:bg-white focus:ring-4 focus:ring-blue-500/10 transition-all font-bold text-lg">
                   <SelectValue placeholder="All Groups" />
                 </SelectTrigger>
@@ -141,7 +141,7 @@ export const DonorSearch = () => {
             {/* Committee */}
             <div className="lg:col-span-3 space-y-3">
               <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 ml-2">Committee</label>
-              <Select value={filters.committeeId} onValueChange={(val) => setFilters(prev => ({ ...prev, committeeId: val, unitId: 'ALL' }))}>
+              <Select value={filters.committeeId} onValueChange={(val) => setFilters(prev => ({ ...prev, committeeId: val as string, unitId: 'ALL' }))}>
                 <SelectTrigger className="h-16 px-6 rounded-2xl bg-slate-50 border-none focus:bg-white focus:ring-4 focus:ring-blue-500/10 transition-all font-bold text-lg">
                   <SelectValue placeholder="All Committees" />
                 </SelectTrigger>
@@ -276,12 +276,10 @@ export const DonorSearch = () => {
                     <Button
                       variant="outline"
                       className="h-14 rounded-2xl font-black text-[10px] uppercase tracking-widest border-2 border-slate-100 hover:bg-slate-50 hover:border-slate-200"
-                      asChild
+                      render={<a href={`tel:${donor.phone}`} />}
                     >
-                      <a href={`tel:${donor.phone}`}>
-                        <Phone className="w-4 h-4 mr-2 text-blue-600" />
-                        Call Now
-                      </a>
+                      <Phone className="w-4 h-4 mr-2 text-blue-600" />
+                      Call Now
                     </Button>
                     <Button
                       className="h-14 rounded-2xl font-black text-[10px] uppercase tracking-widest bg-slate-900 hover:bg-black shadow-xl shadow-slate-200"

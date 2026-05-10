@@ -222,7 +222,7 @@ export default function UnitsPage() {
                             onClick={() => {
                               setCurrentUnit(unit)
                               setName(unit.name)
-                              setCommitteeId(unit.committee_id)
+                              setCommitteeId(unit.committee_id || '')
                               setIsDialogOpen(true)
                             }}
                           >
