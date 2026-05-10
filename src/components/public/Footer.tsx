@@ -17,7 +17,7 @@ export const Footer = () => {
           <div className="lg:col-span-5 space-y-10">
             <Link href="/" className="flex items-center gap-4 group">
               <div className="relative w-16 h-16 overflow-hidden rounded-2xl bg-white p-2 shadow-2xl border border-slate-100 group-hover:scale-110 transition-transform">
-                <Image src="/Images/DYFI-Logo.jpg" alt="DYFI Logo" fill className="object-contain p-1.5" />
+                <Image src="/images/DYFI-Logo.jpg" alt="DYFI Logo" fill className="object-contain p-1.5" />
               </div>
               <div className="flex flex-col">
                 <span className="text-3xl font-black leading-none tracking-tight text-slate-900">DYFI PINARAYI</span>

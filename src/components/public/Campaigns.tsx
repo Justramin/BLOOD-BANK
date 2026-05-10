@@ -8,38 +8,38 @@ import { Calendar, MapPin, Users } from 'lucide-react'
 const campaigns = [
   {
     id: 1,
-    title: 'Mega Blood Donation Camp',
-    location: 'Pinarayi Public Library Hall',
-    date: 'Oct 15, 2025',
-    volunteers: '45+',
-    image: '/Images/1.jpeg',
+    title: 'World Blood Donors Day',
+    location: 'Thalassery Govt Hospital',
+    date: 'Nov 25, 2025',
+    volunteers: '32+',
+    image: '/images/1.jpg',
     category: 'Donation Camp'
   },
   {
     id: 2,
-    title: 'Youth Awareness Program',
+    title: 'Awareness Campaign',
     location: 'Block Committee Office',
-    date: 'Nov 02, 2025',
-    volunteers: '120+',
-    image: '/Images/3.jpeg',
+    date: 'Nov 30, 2025',
+    volunteers: '45+',
+    image: '/images/3.jpg',
     category: 'Awareness'
   },
   {
     id: 3,
-    title: 'Emergency Response Drill',
-    location: 'Town Center',
-    date: 'Dec 10, 2025',
-    volunteers: '60+',
-    image: '/Images/4.jpeg',
-    category: 'Training'
+    title: 'Mega Blood Donation Camp',
+    location: 'Pinarayi Participation',
+    date: 'May 10, 2026',
+    volunteers: '28+',
+    image: '/images/4.jpg',
+    category: 'Donation Camp'
   },
   {
     id: 4,
-    title: 'Community Outreach',
+    title: 'Community Service',
     location: 'Unit Committees',
     date: 'Ongoing',
-    volunteers: '200+',
-    image: '/Images/5.jpeg',
+    volunteers: '50+',
+    image: '/images/5.jpg',
     category: 'Service'
   }
 ]
@@ -74,9 +74,9 @@ export const Campaigns = () => {
             className="pb-2"
           >
             <div className="flex -space-x-4">
-              {[1, 2, 3, 4, 5].map(i => (
+              {['1.jpg', '2.jpeg', '3.jpg', '4.jpg', '5.jpg'].map((img, i) => (
                 <div key={i} className="w-14 h-14 rounded-full border-4 border-white overflow-hidden bg-slate-200">
-                  <Image src={`/Images/${i}.jpeg`} alt="Volunteer" width={56} height={56} className="object-cover" />
+                  <Image src={`/images/${img}`} alt="Volunteer" width={56} height={56} className="object-cover" />
                 </div>
               ))}
               <div className="w-14 h-14 rounded-full border-4 border-white bg-slate-900 flex items-center justify-center text-white text-xs font-bold">

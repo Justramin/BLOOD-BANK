@@ -40,7 +40,7 @@ export const Navbar = () => {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3 group">
           <div className="relative w-12 h-12 overflow-hidden rounded-2xl bg-white p-1.5 shadow-lg group-hover:scale-110 transition-transform">
-            <Image src="/Images/DYFI-Logo.jpg" alt="DYFI Logo" fill className="object-contain p-1" />
+            <Image src="/images/DYFI-Logo.jpg" alt="DYFI Logo" fill className="object-contain p-1" />
           </div>
           <div className="flex flex-col">
             <span className={cn(

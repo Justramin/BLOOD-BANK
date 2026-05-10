@@ -6,10 +6,10 @@ import { motion } from 'framer-motion'
 import { Heart } from 'lucide-react'
 
 const posters = [
-  '/Images/Poster1.jpg',
-  '/Images/Poster2.jpg',
-  '/Images/Poster3.jpg',
-  '/Images/Poster4.jpg',
+  '/images/Poster1.jpg',
+  '/images/Poster2.jpg',
+  '/images/Poster3.jpg',
+  '/images/Poster4.jpg',
 ]
 
 export const Awareness = () => {

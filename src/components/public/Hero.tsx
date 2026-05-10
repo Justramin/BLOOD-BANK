@@ -12,7 +12,7 @@ export const Hero = () => {
       {/* Background with Emotional Imagery */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/Images/2.jpeg"
+          src="/images/2.jpeg"
           alt="Humanitarian Support"
           fill
           className="object-cover opacity-60 scale-105"
@@ -73,9 +73,9 @@ export const Hero = () => {
 
               <div className="flex items-center gap-5 px-8 py-4 rounded-3xl bg-white/5 backdrop-blur-xl border border-white/10">
                 <div className="flex -space-x-4">
-                  {[1, 2, 3, 4].map(i => (
+                  {['1.jpg', '2.jpeg', '3.jpg', '4.jpg'].map((img, i) => (
                     <div key={i} className="w-12 h-12 rounded-2xl border-4 border-slate-900 overflow-hidden bg-slate-800 shadow-xl">
-                      <Image src={`/Images/${i}.jpeg`} alt="Volunteer" width={48} height={48} className="object-cover" />
+                      <Image src={`/images/${img}`} alt="Volunteer" width={48} height={48} className="object-cover" />
                     </div>
                   ))}
                 </div>

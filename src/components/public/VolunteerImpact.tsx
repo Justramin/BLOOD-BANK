@@ -77,7 +77,7 @@ export const VolunteerImpact = () => {
               transition={{ duration: 1 }}
               className="relative aspect-square rounded-[4rem] overflow-hidden shadow-[0_50px_100px_rgba(0,0,0,0.1)]"
             >
-              <Image src="/Images/1.jpeg" alt="Community Action" fill className="object-cover" />
+              <Image src="/images/1.jpg" alt="Community Action" fill className="object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
               <div className="absolute bottom-12 left-12 right-12 text-white">
                 <p className="text-3xl font-black mb-4">"We are not just a database; we are a community that cares."</p>
