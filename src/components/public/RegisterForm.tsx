@@ -207,8 +207,8 @@ export const RegisterForm = () => {
       if (form.hospitalName && form.donationDate && donorId) {
         await donationService.create({
           donor_id: donorId,
-          hospital_name: form.hospitalName,
-          donation_date: form.donationDate
+          hospital_name: form.hospitalName || null,
+          donation_date: form.donationDate || null
         })
       }
 

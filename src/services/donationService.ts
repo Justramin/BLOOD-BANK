@@ -7,7 +7,7 @@ export const donationService = {
   async getAll() {
     const { data, error } = await supabase
       .from('donations')
-      .select('*, donors(*, committees(name), units(name))')
+      .select('*, donor:donors(*, committees(name), units(name))')
       .order('donation_date', { ascending: false })
     if (error) throw error
     return data as (Donation & { donor: any })[]
