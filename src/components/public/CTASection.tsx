@@ -17,7 +17,7 @@ export const CTASection = () => {
         {/* Background Patterns */}
         <div className="absolute inset-0 opacity-20 pointer-events-none">
           <div className="absolute -top-24 -left-24 w-96 h-96 bg-primary rounded-full blur-[100px]" />
-          <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-blue-600 rounded-full blur-[100px]" />
+          <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-rose-500 rounded-full blur-[100px]" />
         </div>
 
         <div className="relative z-10 px-8 py-24 md:p-24 text-center space-y-12">
@@ -45,11 +45,11 @@ export const CTASection = () => {
             
             <Button 
               size="lg" 
-              variant="outline"
-              className="h-20 px-12 rounded-3xl text-xl font-black border-2 border-white/20 text-white hover:bg-white/10 hover:border-white/40"
+              className="h-20 px-12 rounded-3xl text-xl font-black bg-rose-500 hover:bg-rose-600 text-white shadow-2xl shadow-rose-500/20 group"
             >
               <Users className="mr-3 w-6 h-6" />
               Become a Volunteer
+              <ArrowRight className="ml-3 w-6 h-6 group-hover:translate-x-2 transition-transform" />
             </Button>
           </div>
 

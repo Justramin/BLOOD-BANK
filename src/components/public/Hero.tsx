@@ -11,7 +11,7 @@ export const Hero = () => {
     <section className="relative min-h-[90vh] md:min-h-screen flex items-center pt-20 overflow-hidden bg-black">
       {/* Cinematic Background with Advanced Overlays */}
       <div className="absolute inset-0 z-0">
-        <motion.div 
+        <motion.div
           initial={{ scale: 1.1 }}
           animate={{ scale: 1 }}
           transition={{ duration: 10, ease: "easeOut" }}
@@ -25,11 +25,11 @@ export const Hero = () => {
             priority
           />
         </motion.div>
-        
+
         {/* Modern Dark Gradient Overlays for Readability */}
         <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-black/20 md:to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/30" />
-        
+
         {/* Soft Red Glow Lighting Effects */}
         <div className="absolute top-1/4 -left-20 w-[40%] h-[40%] bg-red-600/10 rounded-full blur-[120px] pointer-events-none animate-pulse" />
         <div className="absolute bottom-0 right-0 w-[30%] h-[30%] bg-red-600/5 rounded-full blur-[100px] pointer-events-none" />
@@ -67,7 +67,7 @@ export const Hero = () => {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="text-lg md:text-2xl text-gray-400 font-medium max-w-2xl leading-relaxed font-nunito"
             >
-              Join the Pinarayi Block Committee's collective action for public welfare. 
+              Join the Pinarayi Block Committee's collective action for public welfare.
               Our youth-led volunteer network is standing by to support life in emergencies.
             </motion.p>
           </div>
@@ -89,12 +89,12 @@ export const Hero = () => {
             </Button>
 
             <Button
-              variant="outline"
               size="lg"
-              className="w-full sm:w-auto h-16 md:h-20 px-10 md:px-12 rounded-2xl md:rounded-3xl text-xl md:text-2xl font-black border-2 border-white/20 bg-white/5 backdrop-blur-md text-white hover:bg-white/10 hover:border-white/40 transition-all"
+              className="w-full sm:w-auto h-16 md:h-20 px-10 md:px-12 rounded-2xl md:rounded-3xl text-xl md:text-2xl font-black bg-rose-500 hover:bg-rose-600 text-white transition-all hover:scale-105 shadow-2xl shadow-rose-500/20 group"
             >
               <Users className="mr-3 w-6 h-6 md:w-7 md:h-7" />
               Join Volunteers
+              <ArrowRight className="ml-3 w-6 h-6 md:w-8 md:h-8 group-hover:translate-x-2 transition-transform" />
             </Button>
           </motion.div>
 
@@ -108,12 +108,12 @@ export const Hero = () => {
             <div className="flex -space-x-4">
               {[1, 2, 3, 4].map((i) => (
                 <div key={i} className="w-10 h-10 md:w-12 md:h-12 rounded-full border-2 border-black overflow-hidden bg-gray-800">
-                  <Image 
-                    src={`/images/${i === 2 ? '2.jpeg' : `${i}.jpg`}`} 
-                    alt="Volunteer" 
-                    width={48} 
-                    height={48} 
-                    className="object-cover" 
+                  <Image
+                    src={`/images/${i === 2 ? '2.jpeg' : `${i}.jpg`}`}
+                    alt="Volunteer"
+                    width={48}
+                    height={48}
+                    className="object-cover"
                   />
                 </div>
               ))}
@@ -140,8 +140,8 @@ export const Hero = () => {
       </motion.div>
 
       {/* Cinematic Texture Layer */}
-      <div className="absolute inset-0 z-1 opacity-[0.03] pointer-events-none" 
-        style={{ backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`, backgroundSize: '40px 40px' }} 
+      <div className="absolute inset-0 z-1 opacity-[0.03] pointer-events-none"
+        style={{ backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`, backgroundSize: '40px 40px' }}
       />
     </section>
   )
