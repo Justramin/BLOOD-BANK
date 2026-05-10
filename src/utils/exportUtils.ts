@@ -5,12 +5,13 @@ import { Donor, Donation } from '@/types'
 import { format } from 'date-fns'
 
 export const exportToExcel = (donors: Donor[], fileName: string) => {
-  const data = donors.map(d => ({
+  const data = donors.map((d, idx) => ({
+    'SI NO': idx + 1,
     Name: d.name,
     'Blood Group': d.blood_group,
     Phone: d.phone,
-    Committee: (d as any).committees?.name || '',
-    Unit: (d as any).units?.name || '',
+    Committee: d.committees?.name || '',
+    Unit: d.units?.name || '',
     'Last Donation': d.last_blood_donating_date ? format(new Date(d.last_blood_donating_date), 'dd/MM/yyyy') : 'N/A',
     Status: d.available ? 'Available' : 'Busy'
   }))
@@ -30,18 +31,19 @@ export const exportToPDF = (donors: Donor[], fileName: string) => {
   doc.setTextColor(100)
   doc.text(`Generated on: ${format(new Date(), 'dd/MM/yyyy HH:mm')}`, 14, 30)
 
-  const tableData = donors.map(d => [
+  const tableData = donors.map((d, idx) => [
+    idx + 1,
     d.name,
     d.blood_group,
     d.phone,
-    (d as any).committees?.name || '',
-    (d as any).units?.name || '',
+    d.committees?.name || '',
+    d.units?.name || '',
     d.available ? 'Available' : 'Busy'
   ])
 
   autoTable(doc, {
     startY: 35,
-    head: [['Name', 'Blood', 'Phone', 'Committee', 'Unit', 'Status']],
+    head: [['SI NO', 'Name', 'Blood', 'Phone', 'Committee', 'Unit', 'Status']],
     body: tableData,
     headStyles: { fillColor: [225, 29, 72] }, // Primary red
     theme: 'striped'
@@ -51,14 +53,15 @@ export const exportToPDF = (donors: Donor[], fileName: string) => {
 }
 
 export const exportDonationsToExcel = (donations: Donation[], fileName: string) => {
-  const data = donations.map(d => ({
+  const data = donations.map((d, idx) => ({
+    'SI NO': idx + 1,
     'Donor Name': d.donor?.name || '',
     'Phone Number': d.donor?.phone || '',
     'Blood Group': d.donor?.blood_group || '',
     'Hospital Name': d.hospital_name || 'N/A',
     'Donation Date': d.donation_date ? format(new Date(d.donation_date), 'dd/MM/yyyy') : 'N/A',
-    'Committee': (d.donor as any)?.committees?.name || '',
-    'Unit': (d.donor as any)?.units?.name || ''
+    'Megala Committee': d.donor?.committees?.name || '',
+    'Unit Committee': d.donor?.units?.name || ''
   }))
 
   const worksheet = XLSX.utils.json_to_sheet(data)
@@ -76,19 +79,20 @@ export const exportDonationsToPDF = (donations: Donation[], fileName: string) =>
   doc.setTextColor(100)
   doc.text(`Generated on: ${format(new Date(), 'dd/MM/yyyy HH:mm')}`, 14, 30)
 
-  const tableData = donations.map(d => [
+  const tableData = donations.map((d, idx) => [
+    idx + 1,
     d.donor?.name || '',
     d.donor?.phone || '',
     d.donor?.blood_group || '',
     d.hospital_name || 'N/A',
     d.donation_date ? format(new Date(d.donation_date), 'dd/MM/yyyy') : 'N/A',
-    (d.donor as any)?.committees?.name || '',
-    (d.donor as any)?.units?.name || ''
+    d.donor?.committees?.name || '',
+    d.donor?.units?.name || ''
   ])
 
   autoTable(doc, {
     startY: 35,
-    head: [['Donor Name', 'Phone', 'Blood', 'Hospital', 'Date', 'Committee', 'Unit']],
+    head: [['SI NO', 'Donor Name', 'Phone', 'Blood', 'Hospital', 'Date', 'Megala Committee', 'Unit Committee']],
     body: tableData,
     headStyles: { fillColor: [225, 29, 72] },
     theme: 'striped'
