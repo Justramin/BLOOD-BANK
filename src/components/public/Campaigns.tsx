@@ -130,9 +130,6 @@ export const Campaigns = () => {
                   </div>
                 </div>
 
-                <button className="w-full py-4 rounded-2xl bg-white text-slate-900 font-black text-sm uppercase tracking-widest opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-                  View Details
-                </button>
               </div>
             </motion.div>
           ))}
