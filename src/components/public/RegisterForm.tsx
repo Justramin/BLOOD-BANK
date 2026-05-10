@@ -103,9 +103,9 @@ export const RegisterForm = () => {
                 ...prev,
                 name: donor.name,
                 bloodGroup: donor.blood_group,
-                dob: donor.dob,
-                committeeId: donor.committee_id,
-                unitId: donor.unit_id
+                dob: donor.dob || '',
+                committeeId: donor.committee_id || '',
+                unitId: donor.unit_id || ''
               }))
               setFormStep(4) // Move to donation details
             }
@@ -461,11 +461,13 @@ export const RegisterForm = () => {
                             <div className="space-y-2">
                               <Label className="ml-2 text-xs font-black text-slate-400 uppercase">Blood Group</Label>
                               <Select value={form.bloodGroup} onValueChange={v => {
-                                setForm(p => ({ ...p, bloodGroup: v }))
+                                setForm(p => ({ ...p, bloodGroup: v || '' }))
                                 setErrors(p => { const n = { ...p }; delete n.bloodGroup; return n; })
                               }}>
                                 <SelectTrigger className={cn("h-16 rounded-2xl bg-slate-50 border-none", errors.bloodGroup && "ring-2 ring-rose-500")}>
-                                  <SelectValue placeholder="Select Group" />
+                                  <SelectValue placeholder="Select Group">
+                                    {form.bloodGroup}
+                                  </SelectValue>
                                 </SelectTrigger>
                                 <SelectContent className="rounded-2xl">
                                   {BLOOD_GROUPS.map(g => <SelectItem key={g} value={g}>{g}</SelectItem>)}
@@ -481,7 +483,7 @@ export const RegisterForm = () => {
                             <div className="space-y-2">
                               <Label className="ml-2 text-xs font-black text-slate-400 uppercase">Megala Committee</Label>
                               <Select value={form.committeeId} onValueChange={v => {
-                                setForm(p => ({ ...p, committeeId: v, unitId: '' }))
+                                setForm(p => ({ ...p, committeeId: v || '', unitId: '' }))
                                 setErrors(p => { const n = { ...p }; delete n.committeeId; return n; })
                               }}>
                                 <SelectTrigger className={cn("h-16 rounded-2xl bg-slate-50 border-none", errors.committeeId && "ring-2 ring-rose-500")}>
@@ -501,7 +503,7 @@ export const RegisterForm = () => {
                                 if (v === 'NEW_UNIT') setShowNewUnitInput(true);
                                 else { 
                                   setShowNewUnitInput(false); 
-                                  setForm(p => ({ ...p, unitId: v })); 
+                                  setForm(p => ({ ...p, unitId: v || '' })); 
                                   setErrors(p => { const n = { ...p }; delete n.unitId; return n; })
                                 }
                               }} disabled={!form.committeeId}>

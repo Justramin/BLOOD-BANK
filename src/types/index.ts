@@ -9,7 +9,7 @@ export type Committee = {
 
 export type Unit = {
   id: string
-  committee_id: string
+  committee_id: string | null
   name: string
   created_at: string
   updated_at?: string
@@ -18,11 +18,11 @@ export type Unit = {
 
 export type Donor = {
   id: string
-  committee_id: string
-  unit_id: string
+  committee_id: string | null
+  unit_id: string | null
   name: string
   blood_group: string
-  dob: string
+  dob: string | null
   phone: string
   last_blood_donating_date: string | null
   available: boolean
