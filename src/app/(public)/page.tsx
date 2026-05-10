@@ -3,7 +3,6 @@
 import React from 'react'
 import { Navbar } from '@/components/public/Navbar'
 import { Hero } from '@/components/public/Hero'
-import { EmergencyRequests } from '@/components/public/EmergencyRequests'
 import { Campaigns } from '@/components/public/Campaigns'
 import { Awareness } from '@/components/public/Awareness'
 import { RegisterForm } from '@/components/public/RegisterForm'
@@ -15,22 +14,11 @@ export default function LandingPage() {
     <main className="min-h-screen bg-white">
       <Navbar />
       <Hero />
-      <EmergencyRequests />
       <Campaigns />
       <Awareness />
       <RegisterForm />
       <CTASection />
       <Footer />
-      
-      {/* Mobile Sticky Floating Button for Urgent Situations */}
-      <div className="md:hidden fixed bottom-8 right-8 z-50">
-        <button 
-          className="w-16 h-16 rounded-full bg-primary text-white shadow-2xl flex items-center justify-center animate-bounce border-4 border-white"
-          onClick={() => document.getElementById('emergency')?.scrollIntoView({ behavior: 'smooth' })}
-        >
-          <span className="text-[8px] font-black uppercase tracking-tighter">Urgent</span>
-        </button>
-      </div>
     </main>
   )
 }
