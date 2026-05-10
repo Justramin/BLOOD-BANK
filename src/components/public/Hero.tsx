@@ -18,7 +18,7 @@ export const Hero = () => {
           className="relative w-full h-full"
         >
           <Image
-            src="/images/Banner Image.png"
+            src="/images/BannerImage.png"
             alt="Blood Donation Movement"
             fill
             className="object-cover opacity-60"
