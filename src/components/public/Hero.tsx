@@ -3,156 +3,146 @@
 import React from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { ArrowRight, Activity, Users, Clock, Heart } from 'lucide-react'
+import { ArrowRight, Heart, Users, ShieldCheck } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
 export const Hero = () => {
   return (
-    <section className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-slate-950">
-      {/* Background with Emotional Imagery */}
+    <section className="relative min-h-[90vh] md:min-h-screen flex items-center pt-20 overflow-hidden bg-black">
+      {/* Cinematic Background with Advanced Overlays */}
       <div className="absolute inset-0 z-0">
-        <Image
-          src="/images/2.jpeg"
-          alt="Humanitarian Support"
-          fill
-          className="object-cover opacity-60 scale-105"
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/80 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
+        <motion.div 
+          initial={{ scale: 1.1 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 10, ease: "easeOut" }}
+          className="relative w-full h-full"
+        >
+          <Image
+            src="/images/Banner Image.png"
+            alt="Blood Donation Movement"
+            fill
+            className="object-cover opacity-60"
+            priority
+          />
+        </motion.div>
+        
+        {/* Modern Dark Gradient Overlays for Readability */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-black/20 md:to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/30" />
+        
+        {/* Soft Red Glow Lighting Effects */}
+        <div className="absolute top-1/4 -left-20 w-[40%] h-[40%] bg-red-600/10 rounded-full blur-[120px] pointer-events-none animate-pulse" />
+        <div className="absolute bottom-0 right-0 w-[30%] h-[30%] bg-red-600/5 rounded-full blur-[100px] pointer-events-none" />
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          <div className="lg:col-span-7 space-y-10">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              className="inline-flex items-center gap-3 px-6 py-2.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-sm font-bold"
-            >
-              <div className="w-2.5 h-2.5 rounded-full bg-primary animate-pulse shadow-[0_0_10px_rgba(255,0,0,0.8)]" />
-              <span className="uppercase tracking-[0.2em]">Volunteer Driven Humanitarian Movement</span>
-            </motion.div>
+        <div className="max-w-4xl space-y-10">
+          {/* Badge/Tagline */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-white/5 backdrop-blur-xl border border-white/10 text-white/80 text-[10px] font-black tracking-[0.3em] uppercase"
+          >
+            <Heart className="w-3 h-3 text-red-500 fill-red-500 animate-pulse" />
+            Humanitarian Support Network
+          </motion.div>
 
+          {/* Main Heading */}
+          <div className="space-y-6">
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-6xl md:text-8xl font-black text-white leading-[1.05] tracking-tighter"
+              className="text-5xl md:text-[7.5rem] font-black text-white leading-[0.95] tracking-tighter"
             >
-              Every <span className="text-primary italic">Drop</span> <br />
-              Can Save a <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-rose-400">Human Life.</span>
+              Every <span className="text-red-600 italic">Drop</span> <br className="hidden md:block" />
+              Can Save a <br className="hidden md:block" />
+              Human Life.
             </motion.h1>
 
             <motion.p
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-xl md:text-2xl text-slate-300 font-medium max-w-2xl leading-relaxed font-nunito"
+              className="text-lg md:text-2xl text-gray-400 font-medium max-w-2xl leading-relaxed font-nunito"
             >
-              Join the Pinarayi Block Committee's collective action for public welfare.
+              Join the Pinarayi Block Committee's collective action for public welfare. 
               Our youth-led volunteer network is standing by to support life in emergencies.
             </motion.p>
+          </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              className="flex flex-col sm:row gap-6 pt-4"
+          {/* CTA Buttons - Mobile Optimized Stacking */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="flex flex-col sm:flex-row items-center gap-5 pt-4"
+          >
+            <Button
+              size="lg"
+              className="w-full sm:w-auto h-16 md:h-20 px-10 md:px-12 rounded-2xl md:rounded-3xl text-xl md:text-2xl font-black bg-red-600 hover:bg-red-700 transition-all hover:scale-105 shadow-2xl shadow-red-600/20"
+              onClick={() => document.getElementById('register')?.scrollIntoView({ behavior: 'smooth' })}
             >
-              <Button
-                size="lg"
-                className="h-20 px-12 rounded-3xl text-2xl font-black shadow-[0_20px_50px_rgba(239,68,68,0.3)] group bg-primary hover:bg-rose-600 border-none transition-all hover:scale-105"
-                onClick={() => document.getElementById('register')?.scrollIntoView({ behavior: 'smooth' })}
-              >
-                Become a Life Saver
-                <ArrowRight className="ml-3 w-8 h-8 group-hover:translate-x-2 transition-transform" />
-              </Button>
+              Become a Donor
+              <ArrowRight className="ml-3 w-6 h-6 md:w-8 md:h-8" />
+            </Button>
 
-              <div className="flex items-center gap-5 px-8 py-4 rounded-3xl bg-white/5 backdrop-blur-xl border border-white/10">
-                <div className="flex -space-x-4">
-                  {['1.jpg', '2.jpeg', '3.jpg', '4.jpg'].map((img, i) => (
-                    <div key={i} className="w-12 h-12 rounded-2xl border-4 border-slate-900 overflow-hidden bg-slate-800 shadow-xl">
-                      <Image src={`/images/${img}`} alt="Volunteer" width={48} height={48} className="object-cover" />
-                    </div>
-                  ))}
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-white font-black text-xl leading-none">1,200+</span>
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">Active Volunteers</span>
-                </div>
-              </div>
-            </motion.div>
-          </div>
+            <Button
+              variant="outline"
+              size="lg"
+              className="w-full sm:w-auto h-16 md:h-20 px-10 md:px-12 rounded-2xl md:rounded-3xl text-xl md:text-2xl font-black border-2 border-white/20 bg-white/5 backdrop-blur-md text-white hover:bg-white/10 hover:border-white/40 transition-all"
+            >
+              <Users className="mr-3 w-6 h-6 md:w-7 md:h-7" />
+              Join Volunteers
+            </Button>
+          </motion.div>
 
-          {/* Floating Stats Cards */}
-          <div className="lg:col-span-5 relative hidden lg:block">
-            <div className="grid grid-cols-2 gap-8 perspective-1000">
-              <motion.div
-                initial={{ opacity: 0, y: 50, rotate: -5 }}
-                animate={{ opacity: 1, y: 0, rotate: -2 }}
-                transition={{ delay: 0.8, duration: 1 }}
-                className="space-y-8 pt-16"
-              >
-                <div className="p-8 rounded-[3rem] glass bg-white/95 text-slate-900 shadow-2xl border-none">
-                  <div className="w-14 h-14 bg-rose-100 rounded-2xl flex items-center justify-center mb-6 shadow-inner">
-                    <Activity className="w-8 h-8 text-primary" />
-                  </div>
-                  <div className="text-5xl font-black mb-1 tracking-tight">500+</div>
-                  <div className="text-xs font-black text-slate-400 uppercase tracking-[0.2em]">Emergency Responses</div>
+          {/* Social Proof / Trust Indicators */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 1 }}
+            className="flex items-center gap-6 pt-10 border-t border-white/5"
+          >
+            <div className="flex -space-x-4">
+              {[1, 2, 3, 4].map((i) => (
+                <div key={i} className="w-10 h-10 md:w-12 md:h-12 rounded-full border-2 border-black overflow-hidden bg-gray-800">
+                  <Image 
+                    src={`/images/${i === 2 ? '2.jpeg' : `${i}.jpg`}`} 
+                    alt="Volunteer" 
+                    width={48} 
+                    height={48} 
+                    className="object-cover" 
+                  />
                 </div>
-
-                <div className="p-8 rounded-[3rem] glass bg-white/95 text-slate-900 shadow-2xl border-none">
-                  <div className="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center mb-6 shadow-inner">
-                    <Clock className="w-8 h-8 text-blue-600" />
-                  </div>
-                  <div className="text-5xl font-black mb-1 tracking-tight">24/7</div>
-                  <div className="text-xs font-black text-slate-400 uppercase tracking-[0.2em]">Ready Support</div>
-                </div>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 50, rotate: 5 }}
-                animate={{ opacity: 1, y: 0, rotate: 3 }}
-                transition={{ delay: 1, duration: 1 }}
-                className="space-y-8"
-              >
-                <div className="p-8 rounded-[3rem] glass bg-white/95 text-slate-900 shadow-2xl border-none">
-                  <div className="w-14 h-14 bg-emerald-100 rounded-2xl flex items-center justify-center mb-6 shadow-inner">
-                    <Users className="w-8 h-8 text-emerald-600" />
-                  </div>
-                  <div className="text-5xl font-black mb-1 tracking-tight">2,800</div>
-                  <div className="text-xs font-black text-slate-400 uppercase tracking-[0.2em]">Hearts Touched</div>
-                </div>
-
-                <div className="p-8 rounded-[3rem] glass bg-white/95 text-slate-900 shadow-2xl border-none">
-                  <div className="w-14 h-14 bg-amber-100 rounded-2xl flex items-center justify-center mb-6 shadow-inner">
-                    <Heart className="w-8 h-8 text-amber-600" />
-                  </div>
-                  <div className="text-5xl font-black mb-1 tracking-tight">150+</div>
-                  <div className="text-xs font-black text-slate-400 uppercase tracking-[0.2em]">Life Lines Camps</div>
-                </div>
-              </motion.div>
+              ))}
             </div>
-          </div>
+            <div className="flex flex-col">
+              <div className="flex items-center gap-2">
+                <span className="text-white font-black text-lg md:text-xl leading-none">1,200+</span>
+                <ShieldCheck className="w-4 h-4 text-red-500" />
+              </div>
+              <span className="text-gray-500 text-[10px] font-black uppercase tracking-widest">Active Community Members</span>
+            </div>
+          </motion.div>
         </div>
       </div>
 
-      {/* Hero Decorative Elements */}
-      <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-primary/20 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute top-1/4 -right-24 w-80 h-80 bg-blue-600/10 rounded-full blur-[100px] pointer-events-none" />
-
-      {/* Scroll Down Indicator */}
+      {/* Modern Scroll Action */}
       <motion.div
         animate={{ y: [0, 10, 0] }}
-        transition={{ repeat: Infinity, duration: 2 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 opacity-50"
+        transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-4 opacity-30"
       >
-        <span className="text-[10px] font-black text-white uppercase tracking-[0.4em]">Scroll Down</span>
-        <div className="w-px h-16 bg-gradient-to-b from-primary via-white/20 to-transparent" />
+        <span className="text-[9px] font-black text-white uppercase tracking-[0.6em]">Scroll</span>
+        <div className="w-px h-16 bg-gradient-to-b from-red-600 via-red-600/20 to-transparent" />
       </motion.div>
+
+      {/* Cinematic Texture Layer */}
+      <div className="absolute inset-0 z-1 opacity-[0.03] pointer-events-none" 
+        style={{ backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`, backgroundSize: '40px 40px' }} 
+      />
     </section>
   )
 }
