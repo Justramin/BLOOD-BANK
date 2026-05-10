@@ -3,13 +3,13 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { 
-  LayoutDashboard, 
-  MapPin, 
-  Users, 
-  Settings, 
-  Menu, 
-  X, 
+import {
+  LayoutDashboard,
+  MapPin,
+  Users,
+  Settings,
+  Menu,
+  X,
   Droplet,
   Building2,
   Heart,
@@ -26,6 +26,7 @@ import Image from 'next/image'
 
 const navItems = [
   { name: 'Overview', href: '/dashboard', icon: LayoutDashboard },
+  { name: 'Donation Records', href: '/dashboard/donations', icon: Heart },
   { name: 'Committees', href: '/dashboard/committees', icon: MapPin },
   { name: 'Units', href: '/dashboard/units', icon: Building2 },
   { name: 'Donors', href: '/dashboard/donors', icon: Users },
@@ -63,8 +64,8 @@ export function Sidebar() {
               onClick={() => isMobile && setIsOpen(false)}
               className={cn(
                 "group flex items-center justify-between px-4 py-4 rounded-2xl transition-all duration-300",
-                isActive 
-                  ? "bg-slate-900 text-white shadow-2xl shadow-slate-900/20 translate-x-1" 
+                isActive
+                  ? "bg-slate-900 text-white shadow-2xl shadow-slate-900/20 translate-x-1"
                   : "text-slate-500 hover:bg-white hover:text-slate-900 hover:shadow-lg hover:shadow-slate-200/50"
               )}
             >
@@ -104,8 +105,8 @@ export function Sidebar() {
             </Button>
           </div>
         </div>
-        
-        <Link 
+
+        <Link
           href="/"
           className="mt-6 flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-slate-400 hover:text-rose-600 transition-colors font-bold text-xs uppercase tracking-widest"
         >

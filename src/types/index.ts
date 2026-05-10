@@ -32,6 +32,15 @@ export type Donor = {
   units?: Unit
 }
 
+export type Donation = {
+  id: string
+  donor_id: string
+  hospital_name: string | null
+  donation_date: string | null
+  created_at: string
+  donor?: Donor
+}
+
 export type OrganizationSettings = {
   organization_name: string
   secretary_name: string

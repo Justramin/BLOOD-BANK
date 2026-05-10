@@ -18,7 +18,7 @@ export const donorService = {
       .from('donors')
       .insert([donor])
       .select()
-    
+
     if (error) {
       console.error('Supabase error creating donor:', error)
       throw error
@@ -50,18 +50,28 @@ export const donorService = {
     if (error) throw error
   },
 
+  async getByPhone(phone: string) {
+    const { data, error } = await supabase
+      .from('donors')
+      .select('*, committees(name), units(name)')
+      .eq('phone', phone)
+      .maybeSingle()
+    if (error) throw error
+    return data as Donor | null
+  },
+
   async getStats() {
     const { data: donors, error } = await supabase
       .from('donors')
       .select('blood_group, available')
-    
+
     if (error) throw error
 
     const stats = (donors || []).reduce((acc: any, donor) => {
       acc[donor.blood_group] = (acc[donor.blood_group] || 0) + 1
       return acc
     }, {
-      'A+': 0, 'A-': 0, 'B+': 0, 'B-': 0, 
+      'A+': 0, 'A-': 0, 'B+': 0, 'B-': 0,
       'O+': 0, 'O-': 0, 'AB+': 0, 'AB-': 0
     })
 
