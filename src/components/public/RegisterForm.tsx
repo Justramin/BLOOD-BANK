@@ -455,7 +455,7 @@ export const RegisterForm = () => {
                             </div>
                             <div className="space-y-2">
                               <Label className="ml-2 text-xs font-black text-slate-400 uppercase">Phone Number</Label>
-                              <Input name="phone" value={form.phone} onChange={handleChange} maxLength={10} placeholder="10 Digit Number" className={cn("h-16 rounded-2xl bg-slate-50 border-none", errors.phone && "ring-2 ring-rose-500")} />
+                              <Input name="phone" value={form.phone} onChange={handleChange} maxLength={10} placeholder="10 Digit Number" readOnly className={cn("h-16 rounded-2xl bg-slate-50 border-none cursor-not-allowed opacity-70", errors.phone && "ring-2 ring-rose-500")} />
                               {errors.phone && <p className="ml-2 text-[10px] font-bold text-rose-500 uppercase tracking-widest">{errors.phone}</p>}
                             </div>
                             <div className="space-y-2">
